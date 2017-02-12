@@ -6,7 +6,8 @@ class Main {
 	public static void main(String[] args){
 		
 		//output sql schema creation file for testing
-		SchemaDefinition.outputSqlScript("outputs/createScript.sql", "simon_");
+		SchemaDefinition.outputCreateSqlScript("outputs/createScript.sql", "simon_");
+		SchemaDefinition.outputDropSqlScript("outputs/dropScript.sql", "simon_");
 		
 		//open db connection
 		System.out.println("Attempting to establish DB connection.");

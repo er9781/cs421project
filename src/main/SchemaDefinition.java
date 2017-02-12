@@ -55,7 +55,7 @@ public class SchemaDefinition {
 						+ "owner_id INTEGER NOT NULL FOREIGN KEY REFERENCES user (user_id),"
 						+ "CHECK (is_public=0 OR is_public=1),"
 					+ ")",
-				"CREATE TABLE " + prefix + "viewableBy ("
+				"CREATE TABLE " + prefix + "viewable_by ("
 						+ "page_id INTEGER NOT NULL,"
 						+ "user_id INTEGER NOT NULL,"
 						+ "PRIMARY KEY (page_id, user_id),"
@@ -108,9 +108,47 @@ public class SchemaDefinition {
 		return getTables("");
 	}
 	
-	public static void outputSqlScript(String filename, String prefix){
+	public static void outputCreateSqlScript(String filename, String prefix){
 		String[] tables = getTables(prefix);
 		
+		outputQuerySet(filename, tables);
+	}
+	
+	public static void outputSqlScript(){
+		outputCreateSqlScript("outputs/createSchema.sql", "");
+	}
+	
+	public static String[] getDropTableQueries(String prefix){
+		String[] queries = {
+				"DROP TABLE user",
+				"DROP TABLE message",
+				"DROP TABLE receives",
+				"DROP TABLE alert",
+				"DROP TABLE notifies",
+				"DROP TABLE page",
+				"DROP TABLE viewable_by",
+				"DROP TABLE comment",
+				"DROP TABLE menu_item",
+				"DROP TABLE menu_item_configuration",
+				"DROP TABLE page_menu",
+				"DROP TABLE content",
+		};
+		
+		return queries;
+	}
+	
+	public static void outputDropSqlScript(String filename, String prefix){
+		String[] queries = getDropTableQueries(prefix);
+		
+		outputQuerySet(filename, queries);
+	}
+	
+	public static void outputDropSqlScript(){
+		outputDropSqlScript("outputs/dropSchema.sql", "");
+	}
+	
+	public static void outputQuerySet(String filename, String[] queries){
+
 		PrintWriter w = null;
 		try {
 			w = new PrintWriter(new File(filename));
@@ -118,15 +156,11 @@ public class SchemaDefinition {
 			e.printStackTrace();
 		}
 		
-		for(String table: tables){
-			w.println(table + ";");
+		for(String query: queries){
+			w.println(query + ";");
 		}
 		
 		w.close();
-	}
-	
-	public static void outputSqlScript(){
-		outputSqlScript("createSchema.sql", "");
 	}
 	
 }
