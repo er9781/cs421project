@@ -5,10 +5,28 @@ import java.sql.*;
 class Main {
 	public static void main(String[] args){
 		
+		String prefix = "simon_";
 		//output sql schema creation file for testing
-		SchemaDefinition.outputCreateSqlScript("outputs/createScript.sql", "simon_");
-		SchemaDefinition.outputDropSqlScript("outputs/dropScript.sql", "simon_");
-		SchemaDefinition.outputUserSeedScript("outputs/userSeed.sql", "simon_");
+		SchemaDefinition.outputCreateSqlScript("outputs/createScript.sql", prefix);
+		SchemaDefinition.outputDropSqlScript("outputs/dropScript.sql", prefix);
+		SchemaDefinition.outputUserSeedScript("outputs/userSeed.sql", prefix);
+		
+		//output seeds script
+		String[][] seeds = {
+				//Models
+				DataSeeds.getUserSeeds(prefix),
+				DataSeeds.getMessageSeeds(prefix),
+				DataSeeds.getAlertSeeds(prefix),
+				DataSeeds.getPageSeeds(prefix),
+				DataSeeds.getCommentSeeds(prefix),
+				DataSeeds.getMenuItemSeeds(prefix),
+				DataSeeds.getMenuItemConfigurationSeeds(prefix),
+				DataSeeds.getContentSeeds(prefix),
+				
+				//Relations
+				//TODO
+		};
+		SchemaDefinition.outputQuerySet("outputs/seeds.sql", seeds);
 		
 //		//open db connection
 //		System.out.println("Attempting to establish DB connection.");

@@ -12,8 +12,6 @@ public class SchemaDefinition {
 	 * @return the CREATE TABLE statements for the tables of the schema
 	 */
 	public static String[] getTables(String prefix){
-		//TODO validate prefix
-		
 		String[] tables = {
 				"CREATE TABLE " + prefix + "user ("
 						+ "user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1), "
@@ -71,8 +69,8 @@ public class SchemaDefinition {
 						+ "text VARCHAR(200) NOT NULL, "
 						+ "page_id INTEGER NOT NULL, "
 						+ "FOREIGN KEY (page_id) REFERENCES " + prefix + "page (page_id), "
-						+ "user_id INTEGER NOT NULL, "
-						+ "FOREIGN KEY (user_id) REFERENCES " + prefix + "user (user_id) "
+						+ "owner_id INTEGER NOT NULL, "
+						+ "FOREIGN KEY (owner_id) REFERENCES " + prefix + "user (user_id) "
 					+ ")",
 				"CREATE TABLE " + prefix + "menu_item ("
 						+ "menu_item_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1), "
@@ -129,8 +127,6 @@ public class SchemaDefinition {
 	}
 	
 	public static String[] getDropTableQueries(String prefix){
-		//TODO validate prefix
-		
 		String[] queries = {
 				"DROP TABLE " + prefix + "user",
 				"DROP TABLE " + prefix + "message",
@@ -159,21 +155,8 @@ public class SchemaDefinition {
 		outputDropSqlScript("outputs/dropSchema.sql", "");
 	}
 	
-	public static String[] getUserSeeds(String prefix){
-		
-		String[] queries = {
-				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'simon', 'Simon Labute', 'simon', 'admin')",
-				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'galen', 'Galen Bryant', 'galen', 'admin')",
-				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'mario', 'Mario George', 'mario', 'admin')",
-				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'audran', 'Audran Semler', 'audran', 'admin')",
-				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'cool', 'Cool Person', 'cool', 'user')",
-		};
-		
-		return queries;
-	}
-	
 	public static void outputUserSeedScript(String filename, String prefix){
-		outputQuerySet(filename, getUserSeeds(prefix));
+		outputQuerySet(filename, DataSeeds.getUserSeeds(prefix));
 	}
 	
 	public static void outputUserSeedScript(){
@@ -196,6 +179,25 @@ public class SchemaDefinition {
 		}
 		
 		w.close();
+	}
+	
+	public static void outputQuerySet(String filename, String[][] queries){
+		//flatten query array and pipe to regular outputQuerySet function
+		
+		//sum lengths
+		int len = 0;
+		for(int i = 0; i < queries.length; i++){
+			len += queries[i].length;
+		}
+		
+		String[] flat = new String[len];
+		int index = 0;
+		for(int i = 0; i < queries.length; i++){
+			System.arraycopy(queries[i], 0, flat, index, queries[i].length);
+			index += queries[i].length;
+		}
+		
+		outputQuerySet(filename, flat);
 	}
 	
 }
