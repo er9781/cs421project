@@ -6,6 +6,21 @@ import java.io.PrintWriter;
 
 public class SchemaDefinition {
 
+	public static String[] tableNames = {
+			"user",
+			"message",
+			"receives",
+			"alert",
+			"notifies",
+			"page",
+			"viewable_by",
+			"comment",
+			"menu_item",
+			"menu_item_configuration",
+			"page_menu",
+			"content",
+	};
+	
 	/**
 	 * Returns the create statements for the tables of the database in a String array.
 	 * @param prefix the prefix to be used on all table names
@@ -127,20 +142,11 @@ public class SchemaDefinition {
 	}
 	
 	public static String[] getDropTableQueries(String prefix){
-		String[] queries = {
-				"DROP TABLE " + prefix + "user",
-				"DROP TABLE " + prefix + "message",
-				"DROP TABLE " + prefix + "receives",
-				"DROP TABLE " + prefix + "alert",
-				"DROP TABLE " + prefix + "notifies",
-				"DROP TABLE " + prefix + "page",
-				"DROP TABLE " + prefix + "viewable_by",
-				"DROP TABLE " + prefix + "comment",
-				"DROP TABLE " + prefix + "menu_item",
-				"DROP TABLE " + prefix + "menu_item_configuration",
-				"DROP TABLE " + prefix + "page_menu",
-				"DROP TABLE " + prefix + "content",
-		};
+		String[] queries = new String[tableNames.length];
+		
+		for(int i = 0; i < queries.length; i++){
+			queries[i] = "DROP TABLE " + prefix + tableNames[i];
+		}
 		
 		return queries;
 	}
@@ -161,6 +167,21 @@ public class SchemaDefinition {
 	
 	public static void outputUserSeedScript(){
 		outputUserSeedScript("outputs/userSeed.sql", "");
+	}
+	
+	public static void outputSelectScript(String filename, String prefix){
+		int n = 10;
+		
+		String[] queries = new String[tableNames.length];
+		for(int i = 0; i < queries.length; i++){
+			queries[i] = "SELECT * FROM " + prefix + tableNames[i] + " FETCH FIRST " + n + " ROWS ONLY"; 
+		}
+		
+		outputQuerySet(filename, queries);
+	}
+	
+	public static void outputSelectScript(){
+		outputSelectScript("outputs/selectScript.sql", "");
 	}
 	
 	public static void outputQuerySet(String filename, String[] queries){

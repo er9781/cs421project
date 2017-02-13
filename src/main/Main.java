@@ -27,6 +27,7 @@ class Main {
 				//TODO
 		};
 		SchemaDefinition.outputQuerySet("outputs/seeds.sql", seeds);
+		SchemaDefinition.outputSelectScript("outputs/selects.sql", prefix);
 		
 //		//open db connection
 //		System.out.println("Attempting to establish DB connection.");
