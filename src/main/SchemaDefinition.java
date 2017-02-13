@@ -15,7 +15,6 @@ public class SchemaDefinition {
 		//TODO validate prefix
 		
 		String[] tables = {
-//				"CREATE TABLE " + prefix + "example (id INTEGER, name VARCHAR (25))",
 				"CREATE TABLE " + prefix + "user ("
 						+ "user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1), "
 						+ "username VARCHAR(50) UNIQUE NOT NULL, "
@@ -158,6 +157,27 @@ public class SchemaDefinition {
 	
 	public static void outputDropSqlScript(){
 		outputDropSqlScript("outputs/dropSchema.sql", "");
+	}
+	
+	public static String[] getUserSeeds(String prefix){
+		
+		String[] queries = {
+				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'simon', 'Simon Labute', 'simon', 'admin')",
+				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'galen', 'Galen Bryant', 'galen', 'admin')",
+				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'mario', 'Mario George', 'mario', 'admin')",
+				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'audran', 'Audran Semler', 'audran', 'admin')",
+				"INSERT INTO " + prefix + "user VALUES (DEFAULT, 'cool', 'Cool Person', 'cool', 'user')",
+		};
+		
+		return queries;
+	}
+	
+	public static void outputUserSeedScript(String filename, String prefix){
+		outputQuerySet(filename, getUserSeeds(prefix));
+	}
+	
+	public static void outputUserSeedScript(){
+		outputUserSeedScript("outputs/userSeed.sql", "");
 	}
 	
 	public static void outputQuerySet(String filename, String[] queries){
