@@ -24,7 +24,10 @@ class Main {
 				DataSeeds.getContentSeeds(prefix),
 				
 				//Relations
-				//TODO
+				DataSeeds.getReceivesSeeds(prefix),
+				DataSeeds.getNotifiesSeeds(prefix),
+				DataSeeds.getViewableBySeeds(prefix),
+				DataSeeds.getPageMenuSeeds(prefix),
 		};
 		SchemaDefinition.outputQuerySet("outputs/seeds.sql", seeds);
 		SchemaDefinition.outputSelectScript("outputs/selects.sql", prefix);
