@@ -29,6 +29,20 @@ class Main {
 		SchemaDefinition.outputQuerySet("outputs/seeds.sql", seeds);
 		SchemaDefinition.outputSelectScript("outputs/selects.sql", prefix);
 		
+		//output select statements for Q5
+		int userId = 3;
+		int pageId = 5;
+		String[] selects = {
+				DataViews.getAdmins(prefix),
+				DataViews.getPagesViewable(prefix, userId),
+				DataViews.getNonDismissedAlerts(prefix, userId),
+				DataViews.getUnassignedMenuItemIds(prefix),
+				DataViews.getPageContent(prefix, pageId),
+				DataViews.getMessages(prefix, userId),
+				DataViews.getPageAuthors(prefix),
+		};
+		SchemaDefinition.outputQuerySet("outputs/q5selects.sql", selects);
+		
 //		//open db connection
 //		System.out.println("Attempting to establish DB connection.");
 //		DbConnection con = new DbConnection();
