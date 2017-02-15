@@ -11,9 +11,9 @@ public class DataSeeds {
 	public static int nMenuItems = 10;
 	public static int nMenuItemConfigurations = 5;
 	public static int nContents = 3 * nPages;//avg 3 per page
-	public static int nReceives = nUsers / 2 * nMessages;
-	public static int nNotifies = nUsers / 2 * nAlerts;
-	public static int nViewableBy = nUsers / 2 * nPages;
+	public static int nReceivesPerMessage = nUsers / 2;
+	public static int nNotifiesPerAlert = nUsers / 2;
+	public static int nUsersViewPages = nUsers / 2;
 	public static int nMenuItemsPerPage = nMenuItems / 3;
 	
 	public static String[] getUserSeeds(String prefix) {
@@ -189,16 +189,18 @@ public class DataSeeds {
 	 */
 	
 	public static String[] getReceivesSeeds(String prefix){
-		String[] queries = new String[nReceives];
+		String[][] queries = new String[nMessages][nReceivesPerMessage];
 		
-		//choose random message and random user
-		for(int i = 0; i < nReceives; i++){
-			int userId = (int) (Math.random() * nUsers + 1);
-			int messageId = (int) (Math.random() *nMessages + 1 + nAlerts);//alerts are the first n messages in our seeded data
-			queries[i] = "INSERT INTO " + prefix + "receives VALUES (" + messageId + ", " + userId + ")";
+		for(int i = 0; i < nMessages; i++){
+			int[] userIds = sampleDistinct(1, nUsers + 1, nReceivesPerMessage);
+			
+			for(int j = 0; j < nReceivesPerMessage; j++){
+				int messageId = i + nAlerts + 1;//messages after alerts in seeded data
+				queries[i][j] = "INSERT INTO " + prefix + "receives VALUES (" + messageId + ", " + userIds[j] + ")";
+			}
 		}
 		
-		return queries;
+		return SchemaDefinition.flatten(queries);
 	}
 	
 	public static String[] getReceivesSeeds(){
@@ -206,16 +208,19 @@ public class DataSeeds {
 	}
 	
 	public static String[] getNotifiesSeeds(String prefix){
-		String[] queries = new String[nNotifies];
+		String[][] queries = new String[nAlerts][nNotifiesPerAlert];
 		
-		for(int i = 0; i < nNotifies; i++){
-			int messageId = (int) (Math.random() * nAlerts + 1);
-			int userId = (int) (Math.random() * nUsers + 1);
-			int isDismissed = (int) (Math.random() * 2);
-			queries[i] = "INSERT INTO " + prefix + "notifies VALUES (" + messageId + ", " + userId + ", " + isDismissed + ")";
+		for(int i = 0; i < nAlerts; i++){
+			int[] userIds = sampleDistinct(1, nUsers + 1, nNotifiesPerAlert);
+			
+			for(int j = 0; j < nNotifiesPerAlert; j++){
+				int alertId = i + 1;
+				int isDismissed = (int) (Math.random() * 2);
+				queries[i][j] = "INSERT INTO " + prefix + "notifies VALUES (" + alertId + ", " + userIds[j] + ", " +isDismissed + ")";
+			}
 		}
 		
-		return queries;
+		return SchemaDefinition.flatten(queries);
 	}
 	
 	public static String[] getNotifiesSeeds(){
@@ -223,15 +228,18 @@ public class DataSeeds {
 	}
 	
 	public static String[] getViewableBySeeds(String prefix){
-		String[] queries = new String[nViewableBy];
+		String[][] queries = new String[nPages][nUsersViewPages];
 		
-		for(int i = 0; i < nViewableBy; i++){
-			int pageId = (int) (Math.random() * nPages + 1);
-			int userId = (int) (Math.random() * nUsers + 1);
-			queries[i] = "INSERT INTO " + prefix + "viewable_by VALUES (" + pageId + ", " + userId + ")";
+		for(int i = 0; i < nPages; i++){
+			int[] userIds = sampleDistinct(1, nUsers + 1, nUsersViewPages);
+			
+			for(int j = 0; j < nUsersViewPages; j++){
+				int pageId = i + 1;
+				queries[i][j] = "INSERT INTO " + prefix + "viewable_by VALUES (" + pageId + ", " + userIds[j] + ")";
+			}
 		}
 		
-		return queries;
+		return SchemaDefinition.flatten(queries);
 	}
 	
 	public static String[] getViewableBySeeds(){

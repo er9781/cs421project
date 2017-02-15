@@ -5,7 +5,7 @@ import java.sql.*;
 class Main {
 	public static void main(String[] args){
 		
-		String prefix = "simon_";
+		String prefix = "";
 		//output sql schema creation file for testing
 		SchemaDefinition.outputCreateSqlScript("outputs/createScript.sql", prefix);
 		SchemaDefinition.outputDropSqlScript("outputs/dropScript.sql", prefix);
@@ -36,12 +36,13 @@ class Main {
 		int userId = 3;
 		int pageId = 5;
 		String[] selects = {
-				DataViews.getAdmins(prefix),
+//				DataViews.getAdmins(prefix),
 				DataViews.getPagesViewable(prefix, userId),
 				DataViews.getNonDismissedAlerts(prefix, userId),
-				DataViews.getUnassignedMenuItemIds(prefix),
-				DataViews.getPageContent(prefix, pageId),
-				DataViews.getMessages(prefix, userId),
+//				DataViews.getUnassignedMenuItemIds(prefix),
+//				DataViews.getPageContent(prefix, pageId),
+				DataViews.getMessages(prefix),
+				DataViews.getActiveUserNames(prefix),
 				DataViews.getPageAuthors(prefix),
 		};
 		SchemaDefinition.outputQuerySet("outputs/q5selects.sql", selects);
