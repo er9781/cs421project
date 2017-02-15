@@ -11,6 +11,10 @@ public class DataSeeds {
 	public static int nMenuItems = 10;
 	public static int nMenuItemConfigurations = 5;
 	public static int nContents = 3 * nPages;//avg 3 per page
+	public static int nReceives = nUsers / 2 * nMessages;
+	public static int nNotifies = nUsers / 2 * nAlerts;
+	public static int nViewableBy = nUsers / 2 * nPages;
+	public static int nMenuItemsPerPage = nMenuItems / 3;
 	
 	public static String[] getUserSeeds(String prefix) {
 		String[] vals = {
@@ -184,5 +188,111 @@ public class DataSeeds {
 	 * Pivot Table Seeders
 	 */
 	
-	//TODO
+	public static String[] getReceivesSeeds(String prefix){
+		String[] queries = new String[nReceives];
+		
+		//choose random message and random user
+		for(int i = 0; i < nReceives; i++){
+			int userId = (int) (Math.random() * nUsers + 1);
+			int messageId = (int) (Math.random() *nMessages + 1 + nAlerts);//alerts are the first n messages in our seeded data
+			queries[i] = "INSERT INTO " + prefix + "receives VALUES (" + messageId + ", " + userId + ")";
+		}
+		
+		return queries;
+	}
+	
+	public static String[] getReceivesSeeds(){
+		return getReceivesSeeds("");
+	}
+	
+	public static String[] getNotifiesSeeds(String prefix){
+		String[] queries = new String[nNotifies];
+		
+		for(int i = 0; i < nNotifies; i++){
+			int messageId = (int) (Math.random() * nAlerts + 1);
+			int userId = (int) (Math.random() * nUsers + 1);
+			int isDismissed = (int) (Math.random() * 2);
+			queries[i] = "INSERT INTO " + prefix + "notifies VALUES (" + messageId + ", " + userId + ", " + isDismissed + ")";
+		}
+		
+		return queries;
+	}
+	
+	public static String[] getNotifiesSeeds(){
+		return getNotifiesSeeds("");
+	}
+	
+	public static String[] getViewableBySeeds(String prefix){
+		String[] queries = new String[nViewableBy];
+		
+		for(int i = 0; i < nViewableBy; i++){
+			int pageId = (int) (Math.random() * nPages + 1);
+			int userId = (int) (Math.random() * nUsers + 1);
+			queries[i] = "INSERT INTO " + prefix + "viewable_by VALUES (" + pageId + ", " + userId + ")";
+		}
+		
+		return queries;
+	}
+	
+	public static String[] getViewableBySeeds(){
+		return getViewableBySeeds("");
+	}
+	
+	public static String[] getPageMenuSeeds(String prefix){
+		String[][] queries = new String[nPages][nMenuItemsPerPage];
+		
+		for(int i = 0; i < nPages; i++){
+			//choose random distinct menu items
+			int[] menuItemIds = sampleDistinct(1, nMenuItems + 1, nMenuItemsPerPage);
+			int configId = (int) (Math.random() * nMenuItemConfigurations + 1);
+			int pageId = i + 1;
+			
+			for(int j = 0; j < nMenuItemsPerPage; j++){
+				int index = j + 1;
+				queries[i][j] = "INSERT INTO " + prefix + "page_menu VALUES (" + pageId + ", " + menuItemIds[j] + ", " + configId + ", " + index + ")";
+			}
+		}
+		
+		return SchemaDefinition.flatten(queries);
+	}
+	
+	public static String[] getPageMenuSeeds(){
+		return getPageMenuSeeds("");
+	}
+	
+	/*
+	 * Utilities
+	 */
+	
+	
+	/**
+	 * Horribly inefficient implementation of distinct sampling. min inclusive and max non-inclusive
+	 * @param min
+	 * @param max
+	 * @param n
+	 * @return
+	 */
+	private static int[] sampleDistinct(int min, int max, int n){
+		int[] sample = new int[n];
+		
+		for(int i = 0; i < n; i++){
+			int rand = -1;
+			while(rand == -1 || contains(sample, rand)){
+				rand = (int) (min + Math.random() * (max - min) );
+			}
+			sample[i] = rand;
+		}
+		
+		return sample;
+	}
+	
+	private static boolean contains(int[] array, int el){
+		
+		for(int i = 0; i < array.length; i++){
+			if(array[i] == el)
+				return true;
+		}
+		return false;
+	}
+	
 }

@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class SchemaDefinition {
 
@@ -204,21 +205,25 @@ public class SchemaDefinition {
 	
 	public static void outputQuerySet(String filename, String[][] queries){
 		//flatten query array and pipe to regular outputQuerySet function
-		
+		String[] flat = flatten(queries);
+		outputQuerySet(filename, flat);
+	}
+	
+	public static String[] flatten(String[][] array){
 		//sum lengths
 		int len = 0;
-		for(int i = 0; i < queries.length; i++){
-			len += queries[i].length;
+		for(int i = 0; i < array.length; i++){
+			len += array[i].length;
 		}
 		
 		String[] flat = new String[len];
 		int index = 0;
-		for(int i = 0; i < queries.length; i++){
-			System.arraycopy(queries[i], 0, flat, index, queries[i].length);
-			index += queries[i].length;
+		for(int i = 0; i < array.length; i++){
+			System.arraycopy(array[i], 0, flat, index, array[i].length);
+			index += array[i].length;
 		}
 		
-		outputQuerySet(filename, flat);
+		return flat;
 	}
 	
 }
