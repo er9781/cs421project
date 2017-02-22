@@ -4,3 +4,8 @@ outputs/**
 .classpath
 .settings
 
+# intellij files
+*.iml
+.DS_Store
+/.idea/
+/out/
