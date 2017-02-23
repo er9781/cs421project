@@ -73,7 +73,7 @@ public class DataViews {
 	 * @return
 	 */
 	public static String getMessages(String prefix){
-		return "SELCT * FROM " + prefix + "message WHERE message_id NOT IN "
+		return "SELECT * FROM " + prefix + "message WHERE message_id NOT IN "
 				+ "(SELECT message_id FROM " + prefix + "alert)";
 	}
 	

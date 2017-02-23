@@ -7,9 +7,9 @@ class Main {
 		
 		String prefix = "";
 		//output sql schema creation file for testing
-		SchemaDefinition.outputCreateSqlScript("outputs/createScript.sql", prefix);
-		SchemaDefinition.outputDropSqlScript("outputs/dropScript.sql", prefix);
-		SchemaDefinition.outputUserSeedScript("outputs/userSeed.sql", prefix);
+		SchemaDefinition.outputCreateSqlScript("outputs/q2createSchema.sql", prefix);
+		SchemaDefinition.outputDropSqlScript("outputs/dropDB.sql", prefix);
+		SchemaDefinition.outputUserSeedScript("outputs/q3userSelects.sql", prefix);
 		
 		//output seeds script
 		String[][] seeds = {
@@ -29,8 +29,8 @@ class Main {
 				DataSeeds.getViewableBySeeds(prefix),
 				DataSeeds.getPageMenuSeeds(prefix),
 		};
-		SchemaDefinition.outputQuerySet("outputs/seeds.sql", seeds);
-		SchemaDefinition.outputSelectScript("outputs/selects.sql", prefix);
+		SchemaDefinition.outputQuerySet("outputs/q4inserts.sql", seeds);
+		SchemaDefinition.outputSelectScript("outputs/q4selects.sql", prefix);
 		
 		//output select statements for Q5
 		int userId = 3;
