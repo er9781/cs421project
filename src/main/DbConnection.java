@@ -20,17 +20,17 @@ public class DbConnection {
 		}
 		
 		System.out.println("open con");
+
 		// open connection to database
 		try {
 			String url = "jdbc:db2://comp421.cs.mcgill.ca:50000/cs421";
 			DriverManager.setLoginTimeout(30);//set login timeout to 15s.
-			this.con = DriverManager.getConnection(url, "cs421g35", "Group35_201");
+			this.con = DriverManager.getConnection(url, "cs421g35", "Group35_2017");
 			this.stmt = con.createStatement();
 		} catch (SQLException e) {
 			System.out.println("Error establishing database connection.");
 			this.handleSqlError(e);
 		}
-		
 	}
 	
 	public void execute(String sql){
