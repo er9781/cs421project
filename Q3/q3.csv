@@ -1,0 +1,11 @@
+
+USER_ID     USERNAME                                           NAME                                               PASSWORD                                                                                                                                                                                        ROLE      
+----------- -------------------------------------------------- -------------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------
+          1 simon                                              Simon Labute                                       simon                                                                                                                                                                                           admin     
+          2 galen                                              Galen Bryant                                       galen                                                                                                                                                                                           admin     
+          3 mario                                              Mario George                                       mario                                                                                                                                                                                           admin     
+          4 audran                                             Audran Semler                                      audran                                                                                                                                                                                          admin     
+          5 cool                                               Cool Person                                        cool                                                                                                                                                                                            user      
+
+  5 record(s) selected.
+

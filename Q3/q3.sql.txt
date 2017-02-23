@@ -1,0 +1,6 @@
+connect to cs421;
+INSERT INTO user VALUES (DEFAULT, 'simon', 'Simon Labute', 'simon', 'admin');
+INSERT INTO user VALUES (DEFAULT, 'galen', 'Galen Bryant', 'galen', 'admin');
+INSERT INTO user VALUES (DEFAULT, 'mario', 'Mario George', 'mario', 'admin');
+INSERT INTO user VALUES (DEFAULT, 'audran', 'Audran Semler', 'audran', 'admin');
+INSERT INTO user VALUES (DEFAULT, 'cool', 'Cool Person', 'cool', 'user');

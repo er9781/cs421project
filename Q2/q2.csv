@@ -1,0 +1,125 @@
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MESSAGE_ID                      SYSIBM    INTEGER                      4     0 No    
+TYPE                            SYSIBM    VARCHAR                      7     0 No    
+
+  2 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+COMMENT_ID                      SYSIBM    INTEGER                      4     0 No    
+TEXT                            SYSIBM    VARCHAR                    200     0 No    
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+OWNER_ID                        SYSIBM    INTEGER                      4     0 No    
+
+  4 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+INDEX                           SYSIBM    INTEGER                      4     0 No    
+STYLING                         SYSIBM    VARCHAR                      7     0 No    
+TYPE                            SYSIBM    VARCHAR                      7     0 No    
+CONTENT                         SYSIBM    CLOB                   1048576     0 No    
+
+  5 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MENU_ITEM_ID                    SYSIBM    INTEGER                      4     0 No    
+TEXT                            SYSIBM    VARCHAR                    200     0 No    
+URL                             SYSIBM    VARCHAR                    200     0 No    
+
+  3 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+CONFIG_ID                       SYSIBM    INTEGER                      4     0 No    
+PADDING                         SYSIBM    INTEGER                      4     0 No    
+BACKGROUND_COLOUR               SYSIBM    VARCHAR                     20     0 No    
+TEXT_COLOUR                     SYSIBM    VARCHAR                     20     0 No    
+
+  4 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MESSAGE_ID                      SYSIBM    INTEGER                      4     0 No    
+TEXT                            SYSIBM    VARCHAR                    500     0 No    
+OWNER_ID                        SYSIBM    INTEGER                      4     0 No    
+
+  3 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MESSAGE_ID                      SYSIBM    INTEGER                      4     0 No    
+USER_ID                         SYSIBM    INTEGER                      4     0 No    
+IS_DISMISSED                    SYSIBM    SMALLINT                     2     0 No    
+
+  3 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+TITLE                           SYSIBM    VARCHAR                    200     0 No    
+IS_PUBLIC                       SYSIBM    SMALLINT                     2     0 No    
+OWNER_ID                        SYSIBM    INTEGER                      4     0 No    
+
+  4 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+MENU_ITEM_ID                    SYSIBM    INTEGER                      4     0 No    
+CONFIG_ID                       SYSIBM    INTEGER                      4     0 No    
+INDEX                           SYSIBM    INTEGER                      4     0 No    
+
+  4 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MESSAGE_ID                      SYSIBM    INTEGER                      4     0 No    
+USER_ID                         SYSIBM    INTEGER                      4     0 No    
+
+  2 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+USER_ID                         SYSIBM    INTEGER                      4     0 No    
+USERNAME                        SYSIBM    VARCHAR                     50     0 No    
+NAME                            SYSIBM    VARCHAR                     50     0 No    
+PASSWORD                        SYSIBM    VARCHAR                    191     0 No    
+ROLE                            SYSIBM    VARCHAR                     10     0 No    
+
+  5 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+USER_ID                         SYSIBM    INTEGER                      4     0 No    
+
+  2 record(s) selected.
+
