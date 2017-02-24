@@ -274,7 +274,6 @@ public class DataSeeds {
 	
 	
 	/**
-	 * Horribly inefficient implementation of distinct sampling. min inclusive and max non-inclusive
 	 * @param min
 	 * @param max
 	 * @param n

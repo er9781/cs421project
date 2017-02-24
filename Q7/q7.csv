@@ -1,0 +1,95 @@
+/* AllCommentsWrittenByGalen returns a view of pages and their contents along with galen's comment on said page*/ CREATE VIEW AllCommentsWrittenByGalen as select USER.USERNAME, COMMENT.PAGE_ID, TYPE, CONTENT, COMMENT.COMMENT_ID, COMMENT.TEXT from COMMENT,USER,CONTENT WHERE COMMENT.OWNER_ID = USER.USER_ID AND USERNAME = 'galen' AND COMMENT.PAGE_ID = CONTENT.PAGE_ID
+DB20000I  The SQL command completed successfully.
+
+SELECT USERNAME, COMMENT_ID from AllCommentsWrittenByGalen
+
+USERNAME                                           COMMENT_ID 
+-------------------------------------------------- -----------
+galen                                                       10
+galen                                                       27
+galen                                                       27
+galen                                                       27
+galen                                                       36
+galen                                                       36
+galen                                                       36
+galen                                                       36
+galen                                                       38
+galen                                                       50
+galen                                                       67
+galen                                                       67
+galen                                                       67
+galen                                                       76
+galen                                                       76
+galen                                                       76
+galen                                                       76
+galen                                                       78
+
+  18 record(s) selected.
+
+
+/* should not work */ UPDATE AllCommentsWrittenByGalen SET USERNAME = 'mario'
+DB21034E  The command was processed as an SQL statement because it was not a 
+valid Command Line Processor command.  During SQL processing it returned:
+SQL0150N  The target fullselect, view, typed table, materialized query table, 
+range-clustered table, or staging table in the INSERT, DELETE, UPDATE, MERGE, 
+or TRUNCATE statement is a target for which the requested operation is not 
+permitted.  SQLSTATE=42807
+
+/* MessagesRecievedByGalen returns a view of messages that were received by username Galen */ CREATE VIEW MessagesReceivedByGalen as select USER.USERNAME, USER.NAME, MESSAGE.MESSAGE_ID, MESSAGE.TEXT from USER, RECEIVES, MESSAGE WHERE RECEIVES.MESSAGE_ID = MESSAGE.MESSAGE_ID AND RECEIVES.USER_ID = USER.USER_ID AND USER.USERNAME = 'galen'
+DB20000I  The SQL command completed successfully.
+
+SELECT NAME, MESSAGE_ID  FROM MessagesReceivedByGalen
+
+NAME                                               MESSAGE_ID 
+-------------------------------------------------- -----------
+Galen Bryant                                                21
+Galen Bryant                                                22
+Galen Bryant                                                25
+Galen Bryant                                                28
+Galen Bryant                                                33
+Galen Bryant                                                34
+Galen Bryant                                                43
+Galen Bryant                                                52
+Galen Bryant                                                53
+Galen Bryant                                                55
+Galen Bryant                                                57
+Galen Bryant                                                60
+Galen Bryant                                                62
+Galen Bryant                                                63
+Galen Bryant                                                65
+Galen Bryant                                                66
+Galen Bryant                                                67
+Galen Bryant                                                69
+Galen Bryant                                                70
+Galen Bryant                                                72
+Galen Bryant                                                81
+Galen Bryant                                                82
+Galen Bryant                                                85
+Galen Bryant                                                89
+Galen Bryant                                                93
+Galen Bryant                                                94
+Galen Bryant                                                95
+Galen Bryant                                                96
+Galen Bryant                                                97
+Galen Bryant                                               103
+Galen Bryant                                               104
+Galen Bryant                                               105
+Galen Bryant                                               106
+Galen Bryant                                               112
+Galen Bryant                                               113
+Galen Bryant                                               114
+Galen Bryant                                               115
+Galen Bryant                                               116
+Galen Bryant                                               117
+
+  39 record(s) selected.
+
+
+/* should not work */ UPDATE MessagesReceivedByGalen SET USERNAME = 'mario'
+DB21034E  The command was processed as an SQL statement because it was not a 
+valid Command Line Processor command.  During SQL processing it returned:
+SQL0150N  The target fullselect, view, typed table, materialized query table, 
+range-clustered table, or staging table in the INSERT, DELETE, UPDATE, MERGE, 
+or TRUNCATE statement is a target for which the requested operation is not 
+permitted.  SQLSTATE=42807
+

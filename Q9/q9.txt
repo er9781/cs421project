@@ -1,0 +1,6 @@
+For our database population we decided to use JDBC to manage automatic data generation. Any decent
+technology company needs to be able to generate mock data in order to run tests/analysis within the
+context of their company. We have created infrastructure that uses seeding based on config variables
+to create actionable data. We used these seeds to generate random sql statements that do various jobs
+for this assignment. This code greatly reduces the time needed to populate entire tables or even to
+slightly modify them. The source files for the java code are located in src/main.
