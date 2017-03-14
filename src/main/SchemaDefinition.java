@@ -115,7 +115,7 @@ public class SchemaDefinition {
 						+ "index INTEGER NOT NULL, "
 						+ "styling VARCHAR(7) NOT NULL, "
 						+ "type VARCHAR(7) NOT NULL, "
-						+ "content CLOB NOT NULL, "
+						+ "content VARCHAR(30000) NOT NULL, "
 						+ "PRIMARY KEY (page_id, index), "
 						+ "CHECK (styling='airy' OR styling='compact') "
 					+ ")",

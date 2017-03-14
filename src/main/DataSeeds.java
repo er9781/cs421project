@@ -25,11 +25,10 @@ public class DataSeeds {
 				"(DEFAULT, 'cool', 'Cool Person', 'cool', 'user')",
 		};
 		
-		String[] queries = new String[vals.length + 1];
-		for(int i = 0; i < queries.length - 1; i++){
+		String[] queries = new String[vals.length];
+		for(int i = 0; i < queries.length; i++){
 			queries[i] = "INSERT INTO " + prefix + "user VALUES " + vals[i];
 		}
-		queries[queries.length - 1] = "SELECT * FROM " + prefix + "user";
 
 		return queries;
 	}

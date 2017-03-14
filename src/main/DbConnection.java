@@ -45,7 +45,7 @@ public class DbConnection {
 			this.stmt.execute(sql);
 			if(this.showDebugStatements) System.out.println("DONE");
 		} catch (SQLException e) {
-			this.handleSqlError(e);
+			this.handleSqlError(e, sql);
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class DbConnection {
 			if(this.showDebugStatements) System.out.println("DONE");
 			return result;
 		} catch (SQLException e) {
-			this.handleSqlError(e);
+			this.handleSqlError(e, sql);
 		}
 		return null;
 	}
@@ -67,7 +67,7 @@ public class DbConnection {
 			this.stmt.executeUpdate(sql);
 			if(this.showDebugStatements) System.out.println("DONE");
 		} catch (SQLException e) {
-			this.handleSqlError(e);
+			this.handleSqlError(e, sql);
 		}
 	}
 	
@@ -94,6 +94,14 @@ public class DbConnection {
 	}
 	
 	private void handleSqlError(SQLException e){
+		int sqlCode = e.getErrorCode(); // Get SQLCODE
+		String sqlState = e.getSQLState(); // Get SQLSTATE
+		System.out.println("Failed Query: Code: " + sqlCode + "  sqlState: " + sqlState);
+		System.out.println(e.getMessage());
+	}
+	
+	private void handleSqlError(SQLException e, String sql){
+		System.out.println(sql);
 		int sqlCode = e.getErrorCode(); // Get SQLCODE
 		String sqlState = e.getSQLState(); // Get SQLSTATE
 		System.out.println("Failed Query: Code: " + sqlCode + "  sqlState: " + sqlState);

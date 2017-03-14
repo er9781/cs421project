@@ -28,14 +28,14 @@ public class Control {
 			in = new Scanner(System.in);
 		}
 		if(con == null){
-//			con = new DbConnection();//TODO uncomment to actually connect to db.
+			con = new DbConnection();
 		}
 		this.in = in;
 		this.con = con;
 		
 		UserInteraction[] mainMenuOptions = {
 				new Option1(),
-				new ListViewablePages("username"),
+				new ListViewablePages("1"),
 				Control.quit
 		};
 		Control.mainMenu = new Context(this.in, this.con, mainMenuOptions);
