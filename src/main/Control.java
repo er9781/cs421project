@@ -36,6 +36,7 @@ public class Control {
 		UserInteraction[] mainMenuOptions = {
 				new Option1(),
 				new ListViewablePages("1"),
+				new ListNonDismissedAlerts("1"),
 				Control.quit
 		};
 		Control.mainMenu = new Context(this.in, this.con, mainMenuOptions);
