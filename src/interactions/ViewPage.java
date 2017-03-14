@@ -30,7 +30,7 @@ public class ViewPage extends UserInteraction {
 
 	@Override
 	public Context execute(Scanner in, DbConnection con) {
-		System.out.println("Connect to DB and get page content for \"" + this.pageTitle + "\" and present it.\n");
+		//get content for the given page.
 		String sql = "SELECT index, content FROM content WHERE page_id=" + this.pageId;
 		ResultSet res = con.executeQuery(sql);
 
@@ -51,8 +51,6 @@ public class ViewPage extends UserInteraction {
 			System.out.println(p.content);
 			System.out.println();
 		}
-		
-		
 		
 		return null;
 	}
