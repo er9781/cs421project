@@ -6,11 +6,15 @@ public class DbConnection {
 
 	private Connection con;
 	private Statement stmt;
+	
+	private boolean showDebugStatements = false; 
 
 	/**
 	 * Open a new database connection and remain ready for queries.
 	 */
-	public DbConnection(String url, String username, String password){
+	public DbConnection(String url, String username, String password, boolean showDebugStatements){
+		
+		this.showDebugStatements = showDebugStatements;
 		
 		// register the driver
 		try {
@@ -32,14 +36,14 @@ public class DbConnection {
 	}
 	
 	public DbConnection(){
-		this("jdbc:db2://comp421.cs.mcgill.ca:50000/cs421", "cs421g35", "Group35_2017");
+		this("jdbc:db2://comp421.cs.mcgill.ca:50000/cs421", "cs421g35", "Group35_2017", false);
 	}
 	
 	public void execute(String sql){
 		try {
-			System.out.println(sql);
+			if(this.showDebugStatements) System.out.println(sql);
 			this.stmt.execute(sql);
-			System.out.println("DONE");
+			if(this.showDebugStatements) System.out.println("DONE");
 		} catch (SQLException e) {
 			this.handleSqlError(e);
 		}
@@ -47,9 +51,9 @@ public class DbConnection {
 	
 	public ResultSet executeQuery(String sql){
 		try {
-			System.out.println(sql);
+			if(this.showDebugStatements) System.out.println(sql);
 			ResultSet result = this.stmt.executeQuery(sql);
-			System.out.println("DONE");
+			if(this.showDebugStatements) System.out.println("DONE");
 			return result;
 		} catch (SQLException e) {
 			this.handleSqlError(e);
@@ -59,9 +63,9 @@ public class DbConnection {
 	
 	public void executeUpdate(String sql){
 		try {
-			System.out.println(sql);
+			if(this.showDebugStatements) System.out.println(sql);
 			this.stmt.executeUpdate(sql);
-			System.out.println("DONE");
+			if(this.showDebugStatements) System.out.println("DONE");
 		} catch (SQLException e) {
 			this.handleSqlError(e);
 		}

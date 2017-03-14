@@ -10,6 +10,8 @@ class Main {
 			Control control = new Control();
 			control.beginApplication();
 		}else{
+			DbConnection con;
+			
 			switch(args[0]){
 			case "db:createSchema":
 				//execute table creation on the database.
@@ -17,8 +19,13 @@ class Main {
 				break;
 			case "db:seed":
 				//seed the database.
-				DbConnection con = new DbConnection();
+				con = new DbConnection();
 				con.executeUpdate(DbScriptsGeneration.getSeeds(""));
+				break;
+			case "db:drop":
+				//drop schema
+				con = new DbConnection();
+				con.executeUpdate(SchemaDefinition.getDropTableQueries(""));
 				break;
 			case "P2Scripts":
 				//generate Scripts for Project 2
