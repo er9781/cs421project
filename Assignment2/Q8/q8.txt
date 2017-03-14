@@ -1,0 +1,4 @@
+Tables USER and ALERT use CHECK keyword in order to put constraints on USER.role and ALERT.type.
+the check on USER.role is to ensure that user can be somehow initialized other than 'admin' or 'user',
+this streamlines the query process and ensure DB integrity. The CHECK on ALERT.type is very similar,
+but it ensures that type is a part of a pre-defined list, again this streamlines querying.

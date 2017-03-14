@@ -1,0 +1,22 @@
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+MESSAGE_ID                      SYSIBM    INTEGER                      4     0 No    
+USER_ID                         SYSIBM    INTEGER                      4     0 No    
+IS_DISMISSED                    SYSIBM    SMALLINT                     2     0 No    
+
+  3 record(s) selected.
+
+
+                                Data type                     Column
+Column name                     schema    Data type name      Length     Scale Nulls
+------------------------------- --------- ------------------- ---------- ----- ------
+PAGE_ID                         SYSIBM    INTEGER                      4     0 No    
+INDEX                           SYSIBM    INTEGER                      4     0 No    
+STYLING                         SYSIBM    VARCHAR                      7     0 No    
+TYPE                            SYSIBM    VARCHAR                      7     0 No    
+CONTENT                         SYSIBM    CLOB                   1048576     0 No    
+
+  5 record(s) selected.
+

@@ -21,7 +21,7 @@ public class DataViews {
 	public static String getPagesViewable(String prefix, int userId){
 		return "SELECT * FROM " + prefix + "page WHERE page_id IN "
 				+ "(SELECT page_id FROM " + prefix + "viewable_by WHERE user_id=" + userId + ") "
-				+ "UNION SELECT * FROM " + prefix + "page WHERE is_public=1";
+				+ "UNION SELECT * FROM " + prefix + "page WHERE is_public=1 FETCH FIRST 10 ROWS ONLY";
 	}
 	
 	/**
@@ -31,10 +31,10 @@ public class DataViews {
 	 * @return
 	 */
 	public static String getNonDismissedAlerts(String prefix, int userId){
-		return "SELECT * FROM " + prefix + "alert WHERE alert_id IN "
-				+ "(SELECT alert_id FROM " + prefix + "notifies WHERE user_id=" + userId + " AND is_dismissed=0)";
+		return "SELECT * FROM " + prefix + "alert WHERE message_id IN "
+				+ "(SELECT message_id FROM " + prefix + "notifies WHERE user_id=" + userId + " AND is_dismissed=0) FETCH FIRST 10 ROWS ONLY";
 	}
-	
+
 	/**
 	 * Get a list of all unassigned menu items (not attached to any page).
 	 * @param prefix
@@ -74,7 +74,7 @@ public class DataViews {
 	 */
 	public static String getMessages(String prefix){
 		return "SELECT * FROM " + prefix + "message WHERE message_id NOT IN "
-				+ "(SELECT message_id FROM " + prefix + "alert)";
+				+ "(SELECT message_id FROM " + prefix + "alert) FETCH FIRST 10 ROWS ONLY";
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class DataViews {
 	public static String getActiveUserNames(String prefix){
 		return "SELECT name FROM " + prefix + "user u WHERE "
 				+ "EXISTS (SELECT * FROM " + prefix + "comment WHERE owner_id=u.user_id) OR "
-				+ "EXISTS (SELECT * FROM " + prefix + "page WHERE owner_id=u.user_id)";
+				+ "EXISTS (SELECT * FROM " + prefix + "page WHERE owner_id=u.user_id) FETCH FIRST 10 ROWS ONLY";
 		//alternative. which is better?
 //		return "SELECT name FROM " + prefix + "user WHERE IN "
 //				+ "(SELECT owner_id FROM " + prefix + "comment UNION SELECT owner_id FROM " + prefix + "page)";
@@ -98,7 +98,7 @@ public class DataViews {
 	 * @return
 	 */
 	public static String getPageAuthors(String prefix){
-		return "SELECT u.name,p.title FROM " + prefix + "user u," + prefix + "page p WHERE u.user_id=p.owner_id";
+		return "SELECT u.name,p.title FROM " + prefix + "user u," + prefix + "page p WHERE u.user_id=p.owner_id FETCH FIRST 10 ROWS ONLY";
 	}
 	
 }
