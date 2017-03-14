@@ -10,7 +10,7 @@ public class DbConnection {
 	/**
 	 * Open a new database connection and remain ready for queries.
 	 */
-	public DbConnection(){
+	public DbConnection(String url, String username, String password){
 		
 		// register the driver
 		try {
@@ -19,18 +19,20 @@ public class DbConnection {
 			System.out.println("Class not found for JDBC driver.");
 		}
 		
-		System.out.println("open con");
-
 		// open connection to database
 		try {
-			String url = "jdbc:db2://comp421.cs.mcgill.ca:50000/cs421";
+//			String url = "jdbc:db2://comp421.cs.mcgill.ca:50000/cs421";
 			DriverManager.setLoginTimeout(30);//set login timeout to 15s.
-			this.con = DriverManager.getConnection(url, "cs421g35", "Group35_2017");
+			this.con = DriverManager.getConnection(url, username, password);
 			this.stmt = con.createStatement();
 		} catch (SQLException e) {
 			System.out.println("Error establishing database connection.");
 			this.handleSqlError(e);
 		}
+	}
+	
+	public DbConnection(){
+		this("jdbc:db2://comp421.cs.mcgill.ca:50000/cs421", "cs421g35", "Group35_2017");
 	}
 	
 	public void execute(String sql){
