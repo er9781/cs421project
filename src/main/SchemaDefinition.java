@@ -132,6 +132,10 @@ public class SchemaDefinition {
 		return getTables("");
 	}
 	
+	public static void executeCreateTables(DbConnection con, String prefix){
+		con.executeUpdate(SchemaDefinition.getTables(prefix));
+	}
+	
 	public static void outputCreateSqlScript(String filename, String prefix){
 		String[] tables = getTables(prefix);
 		
