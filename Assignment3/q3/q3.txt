@@ -1,0 +1,31 @@
+Useful Indexes:
+
+CREATE INDEX URL ON MENU_ITEM(URL);
+
+This is an index created on the URL attribute of the MENU_ITEM table. It is useful
+for quickly selecting all or specific URL's that one or all pages employ. SELECT 
+FROM WHERE statements would experience a speed up when targeting URL's. Since 
+MENU_ITEM is not a small table and it is not updated/manipulated often, it is 
+a good candidate for indexing.
+
+CREATE INDEX USER_NAME ON USER(NAME, ROLE) CLUSTER;
+
+This creates an index on the NAME and ROLE attributes in USER in a clustered format.
+This is useful because queries based on users benefit greatly from groupings
+and locality. For instance using a WHERE clause in conjunction with a '>' or '<'
+operator can be used to get all names within a specific alphabetical order and/or 
+role. This index will greatly speed up these types queries by taking advantage of
+the positive effects of clustering for grouping operations, ordering operations,
+and string comparisons (other than equal).
+
+--------------------------------------------------------------------------------
+
+CREATE INDEX TITLE_PAGE ON PAGE(TITLE, IS_PUBLIC) CLUSTER;
+
+This index is very similar to the one above in that it will take advantage of
+groupings and locality, but it focuses on the PAGE table, specifically which PAGE
+records are accesible by everyone. This is very useful when using a SELECT to
+display all pages with or without some search parameters on TITLE.
+
+
+
