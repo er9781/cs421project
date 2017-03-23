@@ -34,9 +34,12 @@ public class Control {
 		this.con = con;
 		
 		UserInteraction[] mainMenuOptions = {
-				new Option1(),
+				//new Option1(),
 				new ListViewablePages("1"),
 				new ListNonDismissedAlerts("1"),
+				new CreatePage(1),
+				new ListPagesToAddContentTo(1),
+				new ViewComments(1),
 				Control.quit
 		};
 		Control.mainMenu = new Context(this.in, this.con, mainMenuOptions);
