@@ -1,0 +1,70 @@
+--Note: I changed the statement termination character to @ in the command line
+
+--This procedure censors all comments containing censoredString as a substring
+--It replaces it with stars *
+
+----------------------------------------------------------
+--Procedure Question 1
+----------------------------------------------------------
+----------------------------------------------------------
+CREATE PROCEDURE CENSORCOMMENT
+(IN censoredString VARCHAR(100))
+BEGIN
+DECLARE endfile INTEGER DEFAULT 0;
+DECLARE not_found CONDITION FOR SQLSTATE '02000';
+DECLARE strLength INTEGER;
+DECLARE my_id INTEGER;
+DECLARE commentText VARCHAR(200);
+DECLARE CURS CURSOR FOR
+        SELECT comment_id,text FROM COMMENT
+        WHERE text LIKE CONCAT(CONCAT('%',censoredString),'%');
+DECLARE CONTINUE HANDLER FOR not_found
+    SET endfile = 1;
+SET strLength = LENGTH(censoredString);
+OPEN CURS;
+FETCH CURS INTO my_id,commentText;
+WHILE endfile=0 DO
+UPDATE COMMENT
+SET text=(
+        SELECT REPLACE(commentText,censoredString,(
+                SELECT REPEAT ('*',strLength)
+                FROM SYSIBM.SYSDUMMY1))
+        FROM SYSIBM.SYSDUMMY1
+)
+WHERE comment_id=my_id;
+FETCH CURS INTO my_id,commentText;
+END WHILE;
+CLOSE CURS;
+END@
+----------------------------------------------------------
+----------------------------------------------------------
+
+--Selecting comments before the procedure call:
+select * from comment@
+
+--Gives us 
+
+COMMENT_ID  TEXT                                                                                                                                                                                                     PAGE_ID     OWNER_ID
+----------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------- -----------
+          3 My comment is censored                                                                                                                                                                                             1           1
+          4 Mine is not                                                                                                                                                                                                        1           2
+
+  2 record(s) selected.
+
+--Next, we call the procedure
+call CENSORCOMMENT('cen')@
+
+--Return:
+Return Status = 0
+
+
+--Calling the list of comments again:
+select * from comment@
+
+COMMENT_ID  TEXT                                                                                                                                                                                                     PAGE_ID     OWNER_ID
+----------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------- -----------
+          3 My comment is ***sored                                                                                                                                                                                             1           1
+          4 Mine is not                                                                                                                                                                                                        1           2
+
+  2 record(s) selected.
+
