@@ -41,7 +41,12 @@ pairriding: {
 (ii)
 
 (a)
+1 map and 0 reduce for the first job
+2 maps and 4 reduce for the second job
 
 (b)
+42 seconds
 
 (c)
+No. We would expect the modified script to be faster since it added parallelism, but it did not.
+We thought it would be faster, but it is not since each part requires overhead and we did not have enough data for it to make a difference.
