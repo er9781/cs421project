@@ -9,7 +9,7 @@ filtervotes = FILTER raw by votes >=100;
 SPLIT filtervotes INTO winners IF elected==1, losers IF elected==0;
 
 --join
-pairriding = JOIN winners by (date,type,parl,prov,riding), losers by(date,type,parl,prov,riding);
+pairriding = JOIN winners by (date,type,parl,prov,riding), losers by(date,type,parl,prov,riding) PARALLEL 4;
 
 --project last names and get the difference between votes
 pairdiff = foreach pairriding generate winners::lastname, losers::lastname, winners::votes - losers::votes AS difference;
